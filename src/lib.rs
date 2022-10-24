@@ -110,7 +110,6 @@ mod tests {
         let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
         let m2 = Money::new(Decimal::from(2), CurrencyCode::USD);
         let m3 = m1.clone().add(m2.clone()).unwrap();
-
         assert_eq!(
             m3,
             Money::new(Decimal::from_i32(3).unwrap(), CurrencyCode::USD)
@@ -125,9 +124,7 @@ mod tests {
     fn test_subtract() {
         let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
         let m2 = Money::new(Decimal::from(1), CurrencyCode::USD);
-
         let m3 = m1.clone().subtract(m2.clone()).unwrap();
-
         assert_eq!(m3, Money::zero(CurrencyCode::USD));
 
         let mut m4 = m1.clone();
@@ -139,7 +136,6 @@ mod tests {
     fn test_times() {
         let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
         let m2 = m1.clone().times(Decimal::from_i32(2).unwrap());
-
         assert_eq!(
             m2,
             Money::new(Decimal::from_i32(2).unwrap(), CurrencyCode::USD)
@@ -157,7 +153,6 @@ mod tests {
     fn test_divided_by() {
         let m1 = Money::new(Decimal::from(10), CurrencyCode::USD);
         let m2 = m1.clone().divided_by(Decimal::from_i32(2).unwrap());
-
         assert_eq!(
             m2,
             Money::new(Decimal::from_i32(5).unwrap(), CurrencyCode::USD)
