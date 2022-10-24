@@ -6,8 +6,8 @@ use rust_decimal::prelude::*;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Money {
-    pub amount: Decimal,
-    pub currency: CurrencyCode,
+    amount: Decimal,
+    currency: CurrencyCode,
 }
 
 #[derive(Debug, PartialEq)]
@@ -38,7 +38,7 @@ impl PartialOrd for Money {
 }
 
 impl Money {
-   // 実装してください
+    // 実装してください
 }
 
 #[cfg(test)]
