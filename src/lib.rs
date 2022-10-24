@@ -101,67 +101,39 @@ mod tests {
     #[test]
     fn test_negated() {
         let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
-        let m2 = m1.clone().negated();
-        assert_eq!(m2, Money::new(Decimal::from(-1), CurrencyCode::USD));
+        assert_eq!(m1.negated(), Money::new(Decimal::from(-1), CurrencyCode::USD));
     }
 
     #[test]
     fn test_add() {
-        let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
-        let m2 = Money::new(Decimal::from(2), CurrencyCode::USD);
-        let m3 = m1.clone().add(m2.clone()).unwrap();
-        assert_eq!(
-            m3,
-            Money::new(Decimal::from_i32(3).unwrap(), CurrencyCode::USD)
-        );
-
-        let mut m4 = m1.clone();
-        m4.add_mut(m2.clone()).unwrap();
-        assert_eq!(m4, m3);
+        let mut m = Money::new(Decimal::from(1), CurrencyCode::USD);
+        m.add(Money::new(Decimal::from(2), CurrencyCode::USD)).unwrap();
+        assert_eq!(m, Money::new(Decimal::from(3), CurrencyCode::USD));
     }
 
     #[test]
     fn test_subtract() {
-        let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
-        let m2 = Money::new(Decimal::from(1), CurrencyCode::USD);
-        let m3 = m1.clone().subtract(m2.clone()).unwrap();
-        assert_eq!(m3, Money::zero(CurrencyCode::USD));
-
-        let mut m4 = m1.clone();
-        m4.subtract_mut(m2.clone()).unwrap();
-        assert_eq!(m4, m3);
+        let mut m = Money::new(Decimal::from(1), CurrencyCode::USD);
+        m.subtract(Money::new(Decimal::from(1), CurrencyCode::USD)).unwrap();
+        assert_eq!(m, Money::new(Decimal::from(0), CurrencyCode::USD));
     }
 
     #[test]
     fn test_times() {
-        let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
-        let m2 = m1.clone().times(Decimal::from_i32(2).unwrap());
+        let mut m = Money::new(Decimal::from(1), CurrencyCode::USD);
+        m.times(Decimal::from_i32(2).unwrap());
         assert_eq!(
-            m2,
-            Money::new(Decimal::from_i32(2).unwrap(), CurrencyCode::USD)
-        );
-
-        let mut m3 = m1.clone();
-        m3.times_mut(Decimal::from_i32(2).unwrap());
-        assert_eq!(
-            m3,
+            m,
             Money::new(Decimal::from_i32(2).unwrap(), CurrencyCode::USD)
         );
     }
 
     #[test]
     fn test_divided_by() {
-        let m1 = Money::new(Decimal::from(10), CurrencyCode::USD);
-        let m2 = m1.clone().divided_by(Decimal::from_i32(2).unwrap());
+        let mut m = Money::new(Decimal::from(10), CurrencyCode::USD);
+        m.divided_by(Decimal::from_i32(2).unwrap());
         assert_eq!(
-            m2,
-            Money::new(Decimal::from_i32(5).unwrap(), CurrencyCode::USD)
-        );
-
-        let mut m3 = m1.clone();
-        m3.divided_by_mut(Decimal::from_i32(2).unwrap());
-        assert_eq!(
-            m3,
+            m,
             Money::new(Decimal::from_i32(5).unwrap(), CurrencyCode::USD)
         );
     }
