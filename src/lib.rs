@@ -1,11 +1,7 @@
 use std::cmp::Ordering;
 use std::fmt::Display;
-use std::hash::{Hash, Hasher};
-use std::ops::{Add, Div, Mul, Neg, Sub};
-use std::str::FromStr;
 
 use iso_4217::CurrencyCode;
-use rust_decimal::Decimal;
 use rust_decimal::prelude::*;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -27,16 +23,6 @@ impl Display for MoneyError {
     }
 }
 
-impl Hash for Money {
-    fn hash<H>(&self, state: &mut H)
-        where
-            H: Hasher,
-    {
-        self.amount.hash(state);
-        state.write_u32(self.currency.num());
-    }
-}
-
 impl PartialOrd for Money {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         if self.currency != other.currency {
@@ -52,14 +38,13 @@ impl PartialOrd for Money {
 }
 
 impl Money {
-
+   // 実装してください
 }
 
 #[cfg(test)]
 mod tests {
     use iso_4217::CurrencyCode;
-    use rust_decimal::Decimal;
-    use rust_decimal::prelude::{FromPrimitive, Zero};
+    use rust_decimal::prelude::*;
 
     use super::*;
 
@@ -75,6 +60,20 @@ mod tests {
         let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
         let m2 = Money::new(Decimal::from(1), CurrencyCode::USD);
         assert_eq!(m1, m2);
+    }
+
+    #[test]
+    fn test_ord1() {
+        let m1 = Money::new(Decimal::from(1), CurrencyCode::USD);
+        let m2 = Money::new(Decimal::from(2), CurrencyCode::USD);
+        assert!(m1 < m2);
+    }
+
+    #[test]
+    fn test_ord2() {
+        let m1 = Money::new(Decimal::from(2), CurrencyCode::USD);
+        let m2 = Money::new(Decimal::from(1), CurrencyCode::USD);
+        assert!(m1 > m2);
     }
 
     #[test]
